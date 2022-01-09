@@ -6,9 +6,10 @@ First, keep only the five-letters word, and count how often each letter comes up
 As a first guess, pick a word that has letters that are all quite frequent.
 Then, based on the result, you can use:
 - grey letters to exclude words that have them - they are forbidden;
-- yellow letters to keep words that have them - they are somewhere in the word;
-- yellow letters again to exclude words that have them where they are yellow - they are somewhere else in the word;
-- green letters to keep words that have them at the right place in the word.
+- yellow letters to keep words that have them - they are somewhere in the solution;
+- yellow letters again to exclude words that have them where they are yellow - they are somewhere else in the solution;
+- green letters to keep words that have them at the right place like in the solution.
+In this updated word list, again pick a word that has letters that are frequent.
 Do that a few times and you will find the word.
 
 Here is the Python code to do so, it's an interactive script.
