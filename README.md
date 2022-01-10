@@ -1,5 +1,4 @@
-
-So, what strategy could we use with [Wordle](https://www.powerlanguage.co.uk/wordle/)?
+So, what strategy could we use with [Wordle](https://www.powerlanguage.co.uk/wordle/)? (You can also use it to play [Sutom](https://sutom.nocle.fr/))
 
 Suppose you have a list of all valid English words.  
 First, keep only the five-letters word, and count how often each letter comes up.  
@@ -26,4 +25,19 @@ Also Wordle gives you additional info sometimes (a letter can be green, and grey
 
 Alternative strategy: use the first turns to "scan" the alphabet. Make a move that will maximize your future level of information.
 
-The dictionary comes from [dwyl](https://github.com/dwyl/english-words).
+The `en` dictionary comes from [dwyl](https://github.com/dwyl/english-words).  
+The `fr` dictionary comes from [lorenbrichter](https://github.com/lorenbrichter/Words).
+
+
+```
+usage: play_wordle.py [-h] [-n NB_LETTERS] [-l LANG]
+
+Play Wordle and other similar games
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -n NB_LETTERS, --nb_letters NB_LETTERS
+                        number of letters in the word to guess, default: 5
+  -l LANG, --lang LANG  language of the game (default = en, supports fr and
+                        en)
+```
