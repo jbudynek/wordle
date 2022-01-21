@@ -136,7 +136,7 @@ parser.add_argument("-n", "--nb_letters", type=int, default=5,
                     help="number of letters in the word to guess, default: 5")
 
 parser.add_argument("-l", "--lang", type=str, default='en',
-                    help="language of the game (default = en, supports fr and en)")
+                    help="language of the game (default = en, supports fr, en and primes)")
 
 args = parser.parse_args()
 print(args)
@@ -145,8 +145,10 @@ nb_letters = args.nb_letters
 lang = args.lang
 if lang == 'fr':
     INPUT_FILE = "fr.txt"
+if lang == 'primes':
+    INPUT_FILE = "primes.txt"
 else:
-    INPUT_FILE = "words_alpha.txt"
+    INPUT_FILE = "en.txt"
 
 f = open(INPUT_FILE, "r")
 contents = f.read()
