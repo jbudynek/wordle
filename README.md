@@ -1,5 +1,5 @@
 So, what strategy could we use with [Wordle](https://www.powerlanguage.co.uk/wordle/)?  
-(You can also use it to play [Sutom](https://sutom.nocle.fr/) or [Le mot](https://wordle.louan.me/) or even [Primel](https://converged.yt/primel/))
+(You can also use it to play [Sutom](https://sutom.nocle.fr/) or [Le Mot](https://wordle.louan.me/) or even [Primel](https://converged.yt/primel/))
 
 Suppose you have a list of all valid English words.  
 First, keep only the five-letters word, and count how often each letter comes up.  
@@ -22,15 +22,20 @@ You can pick and choose what you want in the output, because as a human you will
 My word of choice to start with is "raise".
 
 Could be made better by showing some sort of "popularity" of the word in the english language (frequency in a huge corpus for instance).  
-Also Wordle gives you additional info sometimes (a letter can be green, and grey somewhere else), which is not leveraged in the script, you will have to use your head!
+Also Wordle gives you additional info sometimes (a letter can be green, and grey somewhere else), which is not leveraged in the script, you will have to use your head!  
+We could also compute letter frequency for each position in the word.
 
 Alternative strategy: use the first turns to "scan" the alphabet. Make a move that will maximize your future level of information.
 
-The `en` and `fr` dictionaries comes from [lorenbrichter](https://github.com/lorenbrichter/Words).
-
-
+Dictionaries:
+- The Wordle and Le Mot dictionaries were built by looking into the javacript code of each site.
+- The Sutom dictionary come from [JonathanMM](https://framagit.org/JonathanMM/sutom)
+- The primes dictionary was built manually from [this prime list from UTM](https://primes.utm.edu/lists/small/100000.txt).
+- The `en` and `fr` dictionaries comes from [lorenbrichter](https://github.com/lorenbrichter/Words).
+- `words_alpha.txt` comes from [dwyl](https://github.com/dwyl/english-words)
+- `sowpods.txt` comes from [jesstess](https://github.com/jesstess/Scrabble/tree)
 ```
-usage: play_wordle.py [-h] [-n NB_LETTERS] [-l LANG]
+usage: play_wordle.py [-h] [-n NB_LETTERS] [-d DICTIONARY]
 
 Play Wordle and other similar games
 
@@ -38,6 +43,7 @@ optional arguments:
   -h, --help            show this help message and exit
   -n NB_LETTERS, --nb_letters NB_LETTERS
                         number of letters in the word to guess, default: 5
-  -l LANG, --lang LANG  language of the game (default = en, supports fr, en
-                        and primes)
+  -d DICTIONARY, --dictionary DICTIONARY
+                        dictionary used for the game (default: worlde,
+                        supports wordle, sutom, lemot, primes, fr, en)
 ```

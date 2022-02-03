@@ -2,11 +2,11 @@
 from collections import Counter
 import copy
 import re
-import numpy as np
 import argparse
 
 # find word that contains n arbitrary letters (in place, or somewhere), does not contain p arbitrary letters
 # sort them by combined highest letter frequency
+
 
 def compute_word_to_score(words, counter):
 
@@ -52,31 +52,9 @@ def start_wordle(all_words, nb_letters, DBG=True):
                 words_nbl_no_repeat.append(ww)
                 c_nbl_no_repeat.update(ww)
 
-    if DBG:
-        print(c_nbl.most_common())
-        print("***")
-        print(c_nbl_no_repeat.most_common())
-        print("***")
-
-        print(np.sort(words_nbl))
-        print("***")
-        print(np.sort(words_nbl_no_repeat))
-        print("***")
-
-        f = open("words_{}.txt".format(nb_letters), "w") #TODO LANG
-        for ff in words_nbl:
-            f.write(ff)
-            f.write("\n")
-        f.close()
-
-        f = open("words_{}_norepeat.txt".format(nb_letters), "w")#TODO LANG
-        for ff in words_nbl_no_repeat:
-            f.write(ff)
-            f.write("\n")
-        f.close()
-
     word2score = compute_word_to_score(words_nbl, c_nbl)
-    word2score_norepeat = compute_word_to_score(words_nbl_no_repeat, c_nbl_no_repeat)
+    word2score_norepeat = compute_word_to_score(
+        words_nbl_no_repeat, c_nbl_no_repeat)
 
     for map in [word2score_norepeat, word2score]:
         print("Here are ten good words to start with:")
@@ -128,34 +106,34 @@ def play_round(
 
     return -1
 
-## Main
+# Main
 
-parser = argparse.ArgumentParser(description='Play Wordle and other similar games')
+
+parser = argparse.ArgumentParser(
+    description='Play Wordle and other similar games')
 
 parser.add_argument("-n", "--nb_letters", type=int, default=5,
                     help="number of letters in the word to guess, default: 5")
 
-parser.add_argument("-l", "--lang", type=str, default='en',
-                    help="language of the game (default = en, supports fr, en and primes)")
+parser.add_argument("-d", "--dictionary", type=str, default='wordle',
+                    help="dictionary used for the game (default: worlde, supports wordle, sutom, lemot, primes, fr, en)")
 
 args = parser.parse_args()
 print(args)
 
 nb_letters = args.nb_letters
-lang = args.lang
-if lang == 'fr':
-    INPUT_FILE = "fr.txt"
-if lang == 'primes':
-    INPUT_FILE = "primes.txt"
-else:
-    INPUT_FILE = "en.txt"
+dictionary = args.dictionary
+INPUT_FILE = "words/"+dictionary+".txt"
+
+print("input file=", INPUT_FILE)
 
 f = open(INPUT_FILE, "r")
 contents = f.read()
 all_words = contents.splitlines()
 f.close()
 
-word2score, word2score_norepeat = start_wordle(all_words, nb_letters, DBG=False)
+word2score, word2score_norepeat = start_wordle(
+    all_words, nb_letters, DBG=False)
 
 # part 2
 
@@ -194,4 +172,5 @@ while True:
     print("Included=", included)
     print("Patterns=", patterns)
 
-    ret = play_round(word2score, word2score_norepeat, excluded, included, patterns)
+    ret = play_round(word2score, word2score_norepeat,
+                     excluded, included, patterns)
