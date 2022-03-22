@@ -1,5 +1,4 @@
-
-
+import re
 
 
 f = open("words/lexique/Lexique383.tsv", "r")
@@ -11,10 +10,29 @@ del lines[0]
 
 L = len(lines)
 print(L)
-f = open("./fr_unigram_freq.csv", "w")
-for i,l in enumerate(lines):
-    if i%1000 == 0: print(i)
+
+w2c = {}
+
+for i, l in enumerate(lines):
+    if i % 1000 == 0:
+        print(i)
     ww = l.split("\t")
-    f.write(ww[0]+","+str(int(float(ww[9])*100)))    
-    f.write('\n')
+
+    accented = ww[0]
+    no_accent = accented.lower()
+    no_accent = re.sub(r"[àáâãäå]", "a", no_accent)
+    no_accent = re.sub(r"[èéêë]", "e", no_accent)
+    no_accent = re.sub(r"[ìíîï]", "i", no_accent)
+    no_accent = re.sub(r"[òóôõö]", "o", no_accent)
+    no_accent = re.sub(r"[ùúûü]", "u", no_accent)
+    no_accent = re.sub(r"[ç]", "c", no_accent)
+
+    count = int(float(ww[9]) * 100)
+
+    w2c[no_accent] = count + w2c.get(no_accent, 0)
+
+f = open("./fr_unigram_freq.csv", "w")
+for k, v in w2c.items():
+    f.write(k + "," + str(v))
+    f.write("\n")
 f.close()
